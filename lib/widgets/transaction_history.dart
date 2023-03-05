@@ -48,7 +48,7 @@ class TransactionHisotry extends StatelessWidget {
                       SizedBox(
                         width: 85,
                         child: Text(
-                          "-${transactions[index].amountSpent.toString()} lei",
+                          "-${transactions[index].amountSpent.toStringAsFixed(2)} lei",
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 17,

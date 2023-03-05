@@ -10,6 +10,20 @@ class AddTransaction extends StatelessWidget {
   final titleInput = TextEditingController();
   final amountInput = TextEditingController();
 
+  void submit() {
+    final enteredTitle = titleInput.text;
+    final eneteredAmount = double.parse(amountInput.text);
+
+    if(enteredTitle.isEmpty || eneteredAmount.isNegative) {
+      return;
+    }
+
+    actionHandler(
+      titleInput.text, 
+      double.parse(amountInput.text)
+    ,);
+  }
+
   AddTransaction({required this.actionHandler});
   @override
   Widget build(BuildContext context) {
@@ -23,14 +37,19 @@ class AddTransaction extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'What did you spend on?'),
               controller: titleInput,
+
+              // with () because we are giving reference to (_) function
+              onSubmitted: (_) => submit(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount spent'),
               controller: amountInput,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => submit(),
             ),
             ElevatedButton(
               onPressed: () {
-                actionHandler(titleInput.text, double.parse(amountInput.text));
+                submit();
               },
               child: Text('Add Transaction'),
             ),
