@@ -28,6 +28,9 @@ class MyHomePage extends StatelessWidget {
       dateOfTransaction: DateTime.now(),
     ),
   ];
+
+  final dayMonthFormat = DateFormat('d MMM');
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,9 +48,60 @@ class MyHomePage extends StatelessWidget {
               child: Text("CHART PLACEHOLDER"),
             ),
           ),
-          Card(
-            color: Colors.red,
-            child: Text("List of transactions"),
+          Column(
+            children: transactions.map((ts) {
+              return Card(
+                color: Color.fromRGBO(30, 28, 28, 1),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 30,
+                      ),
+                      // decoration: BoxDecoration(
+                      //   border: Border.all(
+                      //     color: Colors.black,
+                      //     width: 2,
+                      //   ),
+                      // ),     *Use for border
+                      // padding: EdgeInsets.all(10),
+                      child: Text(
+                        ts.title,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.white),
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: <Widget>[
+                          SizedBox(
+                            width: 80,
+                            child: Text(
+                              "-" + ts.amountSpent.toString() + " lei",
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17,
+                                color: Color.fromRGBO(255, 69, 69, 1),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 3,),
+                          SizedBox(
+                            child: Text(
+                              ts.dateOfTransaction.toString(), 
+                              style: const TextStyle(color: Colors.blueGrey),),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              );
+            }).toList(),
           ),
         ],
       ),
