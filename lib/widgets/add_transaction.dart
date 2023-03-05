@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 
 class AddTransaction extends StatelessWidget {
   final Function actionHandler;
-  String titleInput = "N/A";
-  String amountInput = "0";
+  // String titleInput = "";
+  // String amountInput = "";
+
+  final titleInput = TextEditingController();
+  final amountInput = TextEditingController();
+
   AddTransaction({required this.actionHandler});
   @override
   Widget build(BuildContext context) {
@@ -18,19 +22,15 @@ class AddTransaction extends StatelessWidget {
           children: [
             TextField(
               decoration: InputDecoration(labelText: 'What did you spend on?'),
-              onChanged: (value) {
-                titleInput = value;
-              },
+              controller: titleInput,
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount spent'),
-              onChanged: (value) {
-                amountInput = value;
-              },
+              controller: amountInput,
             ),
             ElevatedButton(
               onPressed: () {
-                actionHandler(titleInput, double.parse(amountInput));
+                actionHandler(titleInput.text, double.parse(amountInput.text));
               },
               child: Text('Add Transaction'),
             ),

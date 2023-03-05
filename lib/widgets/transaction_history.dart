@@ -13,64 +13,68 @@ class TransactionHisotry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions.map((ts) {
-        return Card(
-          color: Color.fromRGBO(30, 28, 28, 1),
-          child: Row(
-            children: <Widget>[
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 30,
+    return Container(
+      height: 500,
+      child: ListView.builder(
+        itemBuilder: (context, index) {
+          return Card(
+            color: Color.fromRGBO(30, 28, 28, 1),
+            child: Row(
+              children: <Widget>[
+                Container(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 30,
+                  ),
+                  // decoration: BoxDecoration(
+                  //   border: Border.all(
+                  //     color: Colors.black,
+                  //     width: 2,
+                  //   ),
+                  // ),     *Use for border
+                  // padding: EdgeInsets.all(10),
+                  child: Text(
+                    transactions[index].title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.white),
+                  ),
                 ),
-                // decoration: BoxDecoration(
-                //   border: Border.all(
-                //     color: Colors.black,
-                //     width: 2,
-                //   ),
-                // ),     *Use for border
-                // padding: EdgeInsets.all(10),
-                child: Text(
-                  ts.title,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                      color: Colors.white),
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: <Widget>[
-                    SizedBox(
-                      width: 85,
-                      child: Text(
-                        "-${ts.amountSpent.toString()} lei",
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 17,
-                          color: Color.fromRGBO(255, 69, 69, 1),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      SizedBox(
+                        width: 85,
+                        child: Text(
+                          "-${transactions[index].amountSpent.toString()} lei",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 17,
+                            color: Color.fromRGBO(255, 69, 69, 1),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    SizedBox(
-                      width: 85,
-                      child: Text(
-                        dayMonthFormat.format(ts.dateOfTransaction),
-                        style: const TextStyle(color: Colors.blueGrey),
+                      const SizedBox(
+                        height: 3,
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        );
-      }).toList(),
+                      SizedBox(
+                        width: 85,
+                        child: Text(
+                          dayMonthFormat.format(transactions[index].dateOfTransaction),
+                          style: const TextStyle(color: Colors.blueGrey),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ); 
+        },
+        itemCount: transactions.length,
+      )
     );
   }
 }
