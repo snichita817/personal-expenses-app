@@ -8,7 +8,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      
+      title: 'My Expenses',
+      theme: ThemeData(
+        fontFamily: 'Roboto',
+        appBarTheme: AppBarTheme(
+          titleTextStyle: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold
+          )
+        ),
+      //  bottomSheetTheme: BottomSheetThemeData(backgroundColor: const Color.fromRGBO(22, 22, 24, 1)),
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: const Color.fromRGBO(0, 0, 0, 1),
+          secondary: const Color.fromRGBO(22, 22, 24, 1),
+        ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -63,8 +78,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: Text('My Expenses'),
         actions: <Widget>[IconButton(onPressed: () => _addNewTransactionMenu(context), icon: Icon(Icons.add))],
       ),
       body: SingleChildScrollView(

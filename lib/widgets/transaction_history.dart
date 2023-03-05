@@ -18,7 +18,10 @@ class TransactionHisotry extends StatelessWidget {
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Card(
-            color: Color.fromRGBO(30, 28, 28, 1),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15.0),
+            ),
+            color: Theme.of(context).colorScheme.secondary,
             child: Row(
               children: <Widget>[
                 Container(
@@ -63,7 +66,7 @@ class TransactionHisotry extends StatelessWidget {
                         width: 85,
                         child: Text(
                           dayMonthFormat.format(transactions[index].dateOfTransaction),
-                          style: const TextStyle(color: Colors.blueGrey),
+                          style: const TextStyle(color: Color.fromRGBO(129, 129, 129, 1)),
                         ),
                       ),
                     ],
