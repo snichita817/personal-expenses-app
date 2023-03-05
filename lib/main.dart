@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import './transaction.dart';
 
 void main() => runApp(MyApp());
@@ -89,10 +90,11 @@ class MyHomePage extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 3,),
+                          const SizedBox(height: 3,),
                           SizedBox(
+                            width: 80,
                             child: Text(
-                              ts.dateOfTransaction.toString(), 
+                              dayMonthFormat.format(ts.dateOfTransaction),
                               style: const TextStyle(color: Colors.blueGrey),),
                           ),
                         ],
