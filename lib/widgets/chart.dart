@@ -23,7 +23,7 @@ class Chart extends StatelessWidget {
       for(var transaction in recentTransactions){
         if (transaction.dateOfTransaction.day == dayOfWeek.day &&
             transaction.dateOfTransaction.month == dayOfWeek.month &&
-            transaction.dateOfTransaction.year == dayOfWeek.year) {
+            transaction.dateOfTransaction.year == dayOfWeek.year && transaction.isDismissed == false) {
           sumForTheDay += transaction.amountSpent;
         }
       }

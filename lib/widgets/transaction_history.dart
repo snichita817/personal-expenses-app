@@ -25,7 +25,7 @@ class TransactionHisotry extends StatelessWidget {
                   direction: DismissDirection.startToEnd,
                   onDismissed: (direction) {
                     transaction.isDismissed = true;
-                    deleteHandler(transaction.id);
+                    deleteHandler(transaction.id, index);
                   },
                   //   (direction) {
                   //   // Remove the item from the data source.

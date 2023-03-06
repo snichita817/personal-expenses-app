@@ -64,8 +64,9 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _deleteTransaction(String id) {
-    //var transaction = _recentTransactions[index];
+  void _deleteTransaction(String id, int index) {
+
+    var transaction = _recentTransactions[index];
     // Remove the item from the data source.
     setState(() {           // calling again build method to build graph once again
       _recentTransactions.removeWhere((transaction) => transaction.id == id);
@@ -73,18 +74,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
     
     // Show a snackbar to let the user undo the deletion.
-    // ScaffoldMessenger.of(context).showSnackBar(
-    //   SnackBar(
-    //     content: Text("Transaction deleted"),
-    //     action: SnackBarAction(
-    //       label: "Undo",
-    //       onPressed: () {
-    //         // Add the item back to the data source.
-    //         _recentTransactions.insert(index, transaction);
-    //       },
-    //     ),
-    //   ),
-    // );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Transaction deleted"),
+        action: SnackBarAction(
+          label: "Undo",
+          onPressed: () {
+            // modifying isDismissed value to show it on the list when undo is pressed
+            transaction.isDismissed = false;
+            setState(() {
+              // Add the item back to the list.
+              _recentTransactions.insert(index, transaction);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   void _addNewTransactionMenu(BuildContext cnt) {
