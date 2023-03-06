@@ -36,6 +36,8 @@ class TransactionHisotry extends StatelessWidget {
                   //   ),
                   // ),     *Use for border
                   // padding: EdgeInsets.all(10),
+
+                  // Transaction title
                   child: Text(
                     transactions[index].title,
                     style: const TextStyle(
@@ -50,12 +52,16 @@ class TransactionHisotry extends StatelessWidget {
                     children: <Widget>[
                       SizedBox(
                         width: 85,
-                        child: Text(
-                          "-${transactions[index].amountSpent.toStringAsFixed(2)} lei",
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 17,
-                            color: Color.fromRGBO(255, 69, 69, 1),
+
+                        // to fit larger amounts of money
+                        child: FittedBox(
+                          child: Text(
+                            "-${transactions[index].amountSpent.toStringAsFixed(2)} lei",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 17,
+                              color: Color.fromRGBO(255, 69, 69, 1),
+                            ),
                           ),
                         ),
                       ),

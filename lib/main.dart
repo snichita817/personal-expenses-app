@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromRGBO(0, 0, 0, 1),
           secondary: const Color.fromRGBO(22, 22, 24, 1),
+          tertiary: const Color.fromRGBO(38, 16, 115, 1),
+          // tertiary: const Color.fromRGBO(110, 76, 229, 1),
         ),
       ),
       home: MyHomePage(),
@@ -60,12 +62,13 @@ class _MyHomePageState extends State<MyHomePage> {
     ).toList();
   }
 
-  void _addTransaction(String titleInput, double amountInput) {
+  void _addTransaction(String titleInput, double amountInput, DateTime chosenDate) {
     final newTransaction = Transaction(
         id: DateTime.now().toString(),
         title: titleInput,
         amountSpent: amountInput,
-        dateOfTransaction: DateTime.now());
+        dateOfTransaction: chosenDate,
+    );
 
     setState(() {
       _userTransactions.add(newTransaction);

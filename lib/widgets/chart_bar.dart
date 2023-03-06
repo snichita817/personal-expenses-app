@@ -17,7 +17,9 @@ class ChartBar extends StatelessWidget {
     return Column(
       children: <Widget>[
         // fitted box to shrink the text of the amount spent
-        FittedBox(child: Text("${spentAmount.toStringAsFixed(0)} lei")),
+        Container(
+          height: 20,
+          child: FittedBox(child: Text("${spentAmount.toStringAsFixed(0)} lei"))),
         SizedBox(
           height: 4,
         ),
