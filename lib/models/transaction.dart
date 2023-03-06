@@ -3,7 +3,7 @@ class Transaction {
   final String title; // Transaction title
   final double amountSpent; // sum spent
   final DateTime dateOfTransaction; // when spent
-
+  bool isDismissed = false;
   Transaction({
     required this.id, 
     required this.title, 

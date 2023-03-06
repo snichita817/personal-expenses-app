@@ -35,20 +35,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 'transc1',
-    //   title: 'Food',
-    //   amountSpent: 41.59,
-    //   dateOfTransaction: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 'transc2',
-    //   title: 'Flowers',
-    //   amountSpent: 23.49,
-    //   dateOfTransaction: DateTime.now(),
-    // ),
-  ];
+  final List<Transaction> _userTransactions = [];
+
   List<Transaction> get _recentTransactions {
     // where runs a function on every element of the list
     return _userTransactions.where(
@@ -62,17 +50,41 @@ class _MyHomePageState extends State<MyHomePage> {
     ).toList();
   }
 
-  void _addTransaction(String titleInput, double amountInput, DateTime chosenDate) {
+  void _addTransaction(
+      String titleInput, double amountInput, DateTime chosenDate) {
     final newTransaction = Transaction(
-        id: DateTime.now().toString(),
-        title: titleInput,
-        amountSpent: amountInput,
-        dateOfTransaction: chosenDate,
+      id: DateTime.now().toString(),
+      title: titleInput,
+      amountSpent: amountInput,
+      dateOfTransaction: chosenDate,
     );
 
     setState(() {
       _userTransactions.add(newTransaction);
     });
+  }
+
+  void _deleteTransaction(String id) {
+    //var transaction = _recentTransactions[index];
+    // Remove the item from the data source.
+    setState(() {           // calling again build method to build graph once again
+      _recentTransactions.removeWhere((transaction) => transaction.id == id);
+    });
+
+    
+    // Show a snackbar to let the user undo the deletion.
+    // ScaffoldMessenger.of(context).showSnackBar(
+    //   SnackBar(
+    //     content: Text("Transaction deleted"),
+    //     action: SnackBarAction(
+    //       label: "Undo",
+    //       onPressed: () {
+    //         // Add the item back to the data source.
+    //         _recentTransactions.insert(index, transaction);
+    //       },
+    //     ),
+    //   ),
+    // );
   }
 
   void _addNewTransactionMenu(BuildContext cnt) {
@@ -114,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Chart(recentTransactions: _recentTransactions),
                 ),
               ),
-              TransactionHisotry(_userTransactions),
+              TransactionHisotry(_userTransactions, _deleteTransaction),
             ],
           ),
         ),
