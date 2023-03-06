@@ -15,7 +15,7 @@ class TransactionHisotry extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 500,
-      child: ListView.builder(
+      child: transactions.isNotEmpty ? ListView.builder(
         itemBuilder: (context, index) {
           return Card(
             shape: RoundedRectangleBorder(
@@ -77,6 +77,22 @@ class TransactionHisotry extends StatelessWidget {
           ); 
         },
         itemCount: transactions.length,
+      )
+      : Column(
+        children: <Widget>[
+          Container(
+            height: 200,
+            child: Image.asset(
+             'assets/images/nothing.png',
+             fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(height: 10,),
+          Text(
+            "No transactions found",
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ],
       )
     );
   }
