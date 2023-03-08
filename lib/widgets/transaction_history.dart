@@ -14,7 +14,7 @@ class TransactionHisotry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 500,
+      height: 550,
       child: transactions.isNotEmpty
           ? ListView.builder(
               itemBuilder: (context, index) {
