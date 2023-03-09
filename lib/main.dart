@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:personal_expenses/widgets/add_transaction.dart';
+import 'package:personal_expenses/widgets/edit_transaction.dart';
 import 'package:personal_expenses/widgets/transaction_history.dart';
 import './models/transaction.dart';
 import './widgets/chart.dart';
@@ -50,8 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ).toList();
   }
 
-  void _addTransaction(
-      String titleInput, double amountInput, DateTime chosenDate) {
+  void _addTransaction(String titleInput, double amountInput, DateTime chosenDate) {
     final newTransaction = Transaction(
       id: DateTime.now().toString(),
       title: titleInput,
@@ -62,6 +62,39 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       _userTransactions.add(newTransaction);
     });
+  }
+  void _addNewTransactionMenu(BuildContext cnt) {
+    showModalBottomSheet(
+      context: cnt,
+      builder: (builderContext) {
+        return GestureDetector(
+          onTap: () {},
+          behavior: HitTestBehavior
+              .opaque, // prevents taping on the add screen from closing it
+          child: AddTransaction(actionHandler: _addTransaction),
+        );
+      },
+    );
+  }
+
+  void _editTransaction(Transaction oldTransaction, Transaction newTransaction) {
+    int transactinIndex = _userTransactions.indexOf(oldTransaction);
+    setState(() {
+      _userTransactions[transactinIndex] = newTransaction;
+    });
+  }
+
+  void _editNewTransactionMenu(BuildContext cnt, Transaction toBeEditedTransaction) {
+    showModalBottomSheet(
+      context: cnt,
+      builder: (builderContext) {
+        return GestureDetector(
+          onTap: () {},
+          behavior: HitTestBehavior.opaque,
+          child: EditTransaction(editHandler: _editTransaction, passedTransaction: toBeEditedTransaction),
+        );
+      }
+    );
   }
 
   void _deleteTransaction(String id, int index) {
@@ -92,19 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void _addNewTransactionMenu(BuildContext cnt) {
-    showModalBottomSheet(
-      context: cnt,
-      builder: (builderContext) {
-        return GestureDetector(
-          onTap: () {},
-          behavior: HitTestBehavior
-              .opaque, // prevents taping on the add screen from closing it
-          child: AddTransaction(actionHandler: _addTransaction),
-        );
-      },
-    );
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: Chart(recentTransactions: _recentTransactions),
                 ),
               ),
-              TransactionHisotry(_userTransactions, _deleteTransaction),
+              TransactionHisotry(_userTransactions, _deleteTransaction, _editNewTransactionMenu),
             ],
           ),
         ),

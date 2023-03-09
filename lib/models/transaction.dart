@@ -1,8 +1,8 @@
 class Transaction {
   final String id; // "dsadewq"
-  final String title; // Transaction title
-  final double amountSpent; // sum spent
-  final DateTime dateOfTransaction; // when spent
+   String title; // Transaction title
+   double amountSpent; // sum spent
+   DateTime dateOfTransaction; // when spent
   bool isDismissed = false;
   Transaction({
     required this.id, 

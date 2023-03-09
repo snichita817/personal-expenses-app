@@ -7,7 +7,8 @@ import 'package:intl/intl.dart';
 class TransactionHisotry extends StatelessWidget {
   final List<Transaction> transactions;
   final Function deleteHandler;
-  TransactionHisotry(this.transactions, this.deleteHandler);
+  final Function editHandler;
+  TransactionHisotry(this.transactions, this.deleteHandler, this.editHandler);
 
   final dayMonthFormat = DateFormat('d MMM');
 
@@ -27,23 +28,6 @@ class TransactionHisotry extends StatelessWidget {
                     transaction.isDismissed = true;
                     deleteHandler(transaction.id, index);
                   },
-                  //   (direction) {
-                  //   // Remove the item from the data source.
-                  //   transactions.removeAt(index);
-                  //   // Show a snackbar to let the user undo the deletion.
-                  //   ScaffoldMessenger.of(context).showSnackBar(
-                  //     SnackBar(
-                  //       content: Text("Transaction deleted"),
-                  //       action: SnackBarAction(
-                  //         label: "Undo",
-                  //         onPressed: () {
-                  //           // Add the item back to the data source.
-                  //           transactions.insert(index, transaction);
-                  //         },
-                  //       ),
-                  //     ),
-                  //   );
-                  // },
                   background: Container(
                     alignment: Alignment.centerLeft,
                     color: Colors.red,
@@ -55,58 +39,64 @@ class TransactionHisotry extends StatelessWidget {
                       ),
                     ),
                   ),
-                  child: transaction.isDismissed ? Container(height: 0,) : Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15.0),
-                    ),
-                    color: Theme.of(context).colorScheme.secondary,
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 30,
+                  child: transaction.isDismissed ? Container(height: 0,) : 
+                  GestureDetector(
+                    onTap: () {
+                      editHandler(context, transaction);
+                    },
+                    child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15.0),
+                      ),
+                      color: Theme.of(context).colorScheme.secondary,
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 20,
+                              vertical: 30,
+                            ),
+                            child: Text(
+                              transaction.title,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                  color: Colors.white),
+                            ),
                           ),
-                          child: Text(
-                            transaction.title,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20,
-                                color: Colors.white),
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              SizedBox(
-                                width: 85,
-                                child: FittedBox(
-                                  child: Text(
-                                    "-${transaction.amountSpent.toStringAsFixed(2)} lei",
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17,
-                                      color: Color.fromRGBO(255, 69, 69, 1),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                SizedBox(
+                                  width: 85,
+                                  child: FittedBox(
+                                    child: Text(
+                                      "-${transaction.amountSpent.toStringAsFixed(2)} lei",
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17,
+                                        color: Color.fromRGBO(255, 69, 69, 1),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 3,
-                              ),
-                              SizedBox(
-                                width: 85,
-                                child: Text(
-                                  dayMonthFormat.format(transaction.dateOfTransaction),
-                                  style: const TextStyle(
-                                      color: Color.fromRGBO(129, 129, 129, 1)),
+                                const SizedBox(
+                                  height: 3,
                                 ),
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                                SizedBox(
+                                  width: 85,
+                                  child: Text(
+                                    dayMonthFormat.format(transaction.dateOfTransaction),
+                                    style: const TextStyle(
+                                        color: Color.fromRGBO(129, 129, 129, 1)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 );
