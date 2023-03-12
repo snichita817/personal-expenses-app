@@ -5,7 +5,7 @@ The Personal Expenses App is a mobile application built using the Dart and Flutt
 ## Installation
 
 To install and run the app, follow these steps:
-1. Clone the repository to your local machine using the command `git clone https://github.com/snichita817/personal-expenses-app.git`
+1. Clone the repository to your local machine using the command `git clone https://github.com/snichita817/personal-expenses-app`
 2. Open the project in your preferred IDE (such as VS Code)
 3. Run `flutter pub get` to download and install the required dependencies
 4. Connect your mobile device or emulator and run the app using the `flutter run` command
