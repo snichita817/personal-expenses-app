@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:personal_expenses/widgets/add_transaction.dart';
 import 'package:personal_expenses/widgets/edit_transaction.dart';
 import 'package:personal_expenses/widgets/transaction_history.dart';
 import './models/transaction.dart';
 import './widgets/chart.dart';
 
-void main() => runApp(MyApp());
+void main() {
+//  // Set application to be used only in portrait orientation
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown,],);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -63,6 +69,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _userTransactions.add(newTransaction);
     });
   }
+
+  bool _showChart = false;
+
   void _addNewTransactionMenu(BuildContext cnt) {
     showModalBottomSheet(
       context: cnt,
@@ -129,30 +138,55 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary,
-      appBar: AppBar(
+    final bool isLandscape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final appBar = AppBar(
         title: Text('My Expenses'),
         actions: <Widget>[
           IconButton(
               onPressed: () => _addNewTransactionMenu(context),
               icon: Icon(Icons.add))
         ],
-      ),
+      );
+    final transactionListContainer = Container(
+                height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7, 
+                child: TransactionHisotry(_userTransactions, _deleteTransaction, _editNewTransactionMenu),
+              );
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.primary,
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Container(
           child: Column(
             // mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Container(
+              // If it is in landscape render the switch
+              // If not ommit the switch and print out things as they are
+              if (isLandscape) Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                Text('Show Chart'),
+                Switch(value: _showChart, onChanged: (val) {
+                  setState(() {
+                    _showChart = val;
+                  });
+                }),
+              ],),
+              // if we are not in landscape mode -> render chart container and transactions container
+              if(!isLandscape) Container(
+                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.3, 
+                    child: Chart(recentTransactions: _recentTransactions),
+                  ),
+              if(!isLandscape) transactionListContainer,
+              _showChart ? Container(
                 width: double.infinity,
                 child: Card(
                   color: Colors.blue,
-                  child: Chart(recentTransactions: _recentTransactions),
+                  child: Container(
+                    height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top) * 0.7, 
+                    child: Chart(recentTransactions: _recentTransactions),
+                  ),
                 ),
-              ),
-              TransactionHisotry(_userTransactions, _deleteTransaction, _editNewTransactionMenu),
+              )
+              : transactionListContainer,
             ],
           ),
         ),

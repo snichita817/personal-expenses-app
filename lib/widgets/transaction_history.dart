@@ -14,9 +14,7 @@ class TransactionHisotry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 500,
-      child: transactions.isNotEmpty
+    return transactions.isNotEmpty
           ? ListView.builder(
               itemBuilder: (context, index) {
                 final transaction = transactions[index];
@@ -103,25 +101,27 @@ class TransactionHisotry extends StatelessWidget {
               },
               itemCount: transactions.length,
             )
-          : Column(
-              children: <Widget>[
-                Container(
-                  height: 200,
-                  child: Image.asset(
-                    'assets/images/nothing.png',
-                    fit: BoxFit.cover,
+          : LayoutBuilder(builder: (context, constraints) {
+              return Column(
+                children: <Widget>[
+                  Container(
+                    height: constraints.maxHeight * 0.70,
+                    child: Image.asset(
+                      'assets/images/nothing.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "No transactions found",
-                  style:
-                      TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-    );
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "No transactions found",
+                    style:
+                        TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              );
+          }
+        );
   }
 }

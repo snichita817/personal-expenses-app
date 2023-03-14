@@ -61,58 +61,61 @@ class _EditTransactionState extends State<EditTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 10,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            //* Spent on information
-            TextField(
-              decoration: InputDecoration(labelText: 'What did you spend on?'),
-              controller: widget._titleInput,
-
-              // with () because we are giving reference to (_) function
-              onSubmitted: (_) => _submit(),
-            ),
-
-            //* Amount spent input
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount spent'),
-              controller: widget._amountInput,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submit(),
-            ),
-
-            //* Date picker
-            Container(
-              height: 60,
-              child: Row(
-                children: <Widget>[
-                  Expanded(child: Text(widget._selectedDate == null ? 'No date chosen!' : "Picked date: ${DateFormat.yMd().format(widget._selectedDate)}")),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Theme.of(context).colorScheme.tertiary,
+    // Wrapping in single child scroll view to scroll when keyword shows up and you dont have space to type
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 10,
+        child: Container(
+          padding: EdgeInsets.only(top: 10, left: 10, right: 10, bottom: MediaQuery.of(context).viewInsets.bottom + 10,),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              //* Spent on information
+              TextField(
+                decoration: InputDecoration(labelText: 'What did you spend on?'),
+                controller: widget._titleInput,
+    
+                // with () because we are giving reference to (_) function
+                onSubmitted: (_) => _submit(),
+              ),
+    
+              //* Amount spent input
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount spent'),
+                controller: widget._amountInput,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submit(),
+              ),
+    
+              //* Date picker
+              Container(
+                height: 60,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(child: Text(widget._selectedDate == null ? 'No date chosen!' : "Picked date: ${DateFormat.yMd().format(widget._selectedDate)}")),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor: Theme.of(context).colorScheme.tertiary,
+                      ),
+                      onPressed: _presentDatePicker,
+                      child: Text('Choose date'),
                     ),
-                    onPressed: _presentDatePicker,
-                    child: Text('Choose date'),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-
-            //* Add transaction button
-            ElevatedButton(
-              onPressed: () {
-                _submit();
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.tertiary,
+    
+              //* Add transaction button
+              ElevatedButton(
+                onPressed: () {
+                  _submit();
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.tertiary,
+                ),
+                child: Text('Edit Transaction'),
               ),
-              child: Text('Edit Transaction'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
