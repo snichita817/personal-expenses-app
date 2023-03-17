@@ -111,10 +111,10 @@ class TransactionHisotry extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text(
+                  const Text(
                     "No transactions found",
                     style:
                         TextStyle(color: Colors.white, fontWeight: FontWeight.bold),

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Roboto',
         appBarTheme: AppBarTheme(
             titleTextStyle:
-                TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+              const TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
         //  bottomSheetTheme: BottomSheetThemeData(backgroundColor: const Color.fromRGBO(22, 22, 24, 1)),
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: const Color.fromRGBO(0, 0, 0, 1),
@@ -118,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // Show a snackbar to let the user undo the deletion.
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text("Transaction deleted"),
+        content: const Text("Transaction deleted"),
         action: SnackBarAction(
           label: "Undo",
           onPressed: () {
@@ -163,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
               // If it is in landscape render the switch
               // If not ommit the switch and print out things as they are
               if (isLandscape) Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-                Text('Show Chart'),
+                const Text('Show Chart'),
                 Switch(value: _showChart, onChanged: (val) {
                   setState(() {
                     _showChart = val;

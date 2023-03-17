@@ -72,7 +72,7 @@ class _EditTransactionState extends State<EditTransaction> {
             children: [
               //* Spent on information
               TextField(
-                decoration: InputDecoration(labelText: 'What did you spend on?'),
+                decoration: const InputDecoration(labelText: 'What did you spend on?'),
                 controller: widget._titleInput,
     
                 // with () because we are giving reference to (_) function
@@ -81,7 +81,7 @@ class _EditTransactionState extends State<EditTransaction> {
     
               //* Amount spent input
               TextField(
-                decoration: InputDecoration(labelText: 'Amount spent'),
+                decoration: const InputDecoration(labelText: 'Amount spent'),
                 controller: widget._amountInput,
                 keyboardType: TextInputType.number,
                 onSubmitted: (_) => _submit(),
@@ -98,7 +98,7 @@ class _EditTransactionState extends State<EditTransaction> {
                         foregroundColor: Theme.of(context).colorScheme.tertiary,
                       ),
                       onPressed: _presentDatePicker,
-                      child: Text('Choose date'),
+                      child: const Text('Choose date'),
                     ),
                   ],
                 ),
@@ -112,7 +112,7 @@ class _EditTransactionState extends State<EditTransaction> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Theme.of(context).colorScheme.tertiary,
                 ),
-                child: Text('Edit Transaction'),
+                child: const Text('Edit Transaction'),
               ),
             ],
           ),
